@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="photo/logo.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <title>MuDaze</title>
+  <style>
+    /*navbar------------------------*/
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 40px;
+      padding: 12px 30px;
+      margin: 20px auto;
+      width: 80%;
+      box-shadow: 0 4px 20px rgba(255, 0, 255, 0.3);
+      z-index: 2;
+    }
+
+    /* Logo */
+    .navi-logo {
+      font-weight: 600;
+      font-size: 18px;
+      color: #ff2b75;
+    }
+
+    /* Navigation Links */
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 6px 0;
+      background-image: linear-gradient(to right, #ff2b75, #ff6bcb);
+      background-repeat: no-repeat;
+      background-size: 0% 3px;
+      /* underline width */
+      background-position: center bottom;
+      transition: background-size 0.3s ease;
+    }
+
+    /* Hover + Active Effect */
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      background-size: 40% 3px;
+      /* underline length */
+    }
+
+    /* Button Style */
+    .start-btn {
+      background: linear-gradient(to right, #ff2b75, #ff6bcb);
+      padding: 10px 20px;
+      border-radius: 30px;
+      color: #fff;
+      font-weight: 600;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(255, 43, 117, 0.6);
+    }
+
+    @media (max-width: 680px) {
+      .navbar {
+        top: 10px;
+        width: 90%;
+        padding: 10px 20px;
+        gap: 20px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .nav-links li a {
+        font-size: 14px;
+      }
+
+      .start-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        top: 10px;
+        width: 90%;
+        padding: 10px 20px;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .navi-logo {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .nav-links li a {
+        font-size: 14px;
+      }
+
+      .start-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+    }
+
+    /*chapter------------------------*/
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 90%;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(ellipse at top left, rgba(10, 255, 255, 0.06), transparent 20%),
+        linear-gradient(180deg, #0e0012 0%, #000 60%);
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      padding: 20px;
+    }
+
+    /* neon horizontal lines */
+    .neon-line {
+      height: 8px;
+      width: 70%;
+      margin: 40px auto;
+      border-radius: 10px;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 242, 0.45), transparent);
+      box-shadow: 0 8px 30px rgba(20, 188, 255, 0.15);
+      position: relative;
+    }
+
+    .chapter-row {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      margin: 40px 0;
+    }
+
+    /* Left text column */
+    .chapter-text {
+      width: 35%;
+      padding: 100px 20px 20px 20px;
+    }
+
+    .name {
+      font-size: 50px;
+      font-weight: 500;
+      line-height: 0.9;
+      color: #fff;
+    }
+
+    .synopsis {
+      margin-top: 20px;
+      color: #e9e9e9;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), rgba(255, 0, 242, 0.25));
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* right card */
+    .card-wrap {
+      width: 65%;
+      position: relative;
+      padding: 18px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, rgba(0, 238, 255, 0.05), rgba(0, 0, 0, 0.25));
+      border: 2px solid rgba(0, 217, 255, 0.08);
+      box-shadow: 0 8px 40px rgba(98, 0, 255, 0.1), inset 0 0 50px rgba(255, 0, 0, 0.02);
+    }
+
+    .media-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      display: flex;
+      min-height: 220px;
+      align-items: center;
+    }
+
+    .media-card picture {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s ease;
+    }
+
+    .media-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s ease;
+    }
+
+    .media-card:hover picture,
+    .media-card:hover img {
+      transform: scale(1.03);
+    }
+
+
+    /* small control row */
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .control-pill {
+      border-radius: 6px;
+      padding: 10px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      color: aqua;
+    }
+
+
+    /* lower left card reversed (image left, text right) */
+    .chapter-row.reversed {
+      flex-direction: row-reverse
+    }
+
+    .card-wrap.small {
+      width: 60%;
+    }
+
+    /* Tablet View (max-width: 1024px) */
+    @media (max-width: 1024px) {
+      .container {
+        margin-top: 5%;
+      }
+
+      .chapter-row {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      /* reversed layout ကို tablet မှာ column ပြန်ဖြစ်အောင် */
+      .chapter-row.reversed {
+        flex-direction: column;
+      }
+
+      .chapter-text,
+      .card-wrap,
+      .card-wrap.small {
+        width: 100%;
+        padding: 20px;
+      }
+
+      .name {
+        font-size: 40px;
+      }
+
+      .synopsis {
+        font-size: 14px;
+      }
+
+      .media-card img {
+        height: 350px;
+      }
+
+      .control-pill {
+        padding: 8px 14px;
+        font-size: 14px;
+      }
+
+      .neon-line {
+        width: 80%;
+        margin: 30px auto;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        margin-top: 10%;
+      }
+
+      .chapter-row {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+
+      .chapter-text,
+      .card-wrap,
+      .card-wrap.small {
+        width: 90%;
+        padding: 20px;
+      }
+
+      .media-card img {
+        height: 230px;
+      }
+
+    }
+
+    @media (max-width: 480px) {
+      .chapter-row {
+        flex-direction: column;
+      }
+
+      .chapter-row.reversed {
+        flex-direction: column;
+      }
+
+      .chapter-text {
+        width: 100%;
+      }
+
+      .name {
+        font-size: 1.3rem;
+      }
+
+      .synopsis li {
+        font-size: 0.9rem;
+      }
+
+      .control-pill {
+        padding: 8px 14px;
+        font-size: 0.9rem;
+      }
+
+      .card-wrap,
+      .card-wrap.small {
+        padding: 15px;
+      }
+    }
+
+    /*footer------------*/
+    footer {
+      width: 100%;
+      bottom: 0;
+      background: linear-gradient(to right, #2e003c, #000e2d);
+      color: #fff;
+      padding: 100px 0 30px;
+      border-top-left-radius: 125px;
+      font-size: 15px;
+      line-height: 20px;
+    }
+
+    .row {
+      width: 85%;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .col {
+      flex-basis: 25%;
+      padding: 10px;
+    }
+
+    .logo {
+      width: 150px;
+      margin-bottom: 30px;
+    }
+
+    hr {
+      width: 90%;
+      border: 0;
+      border-bottom: 1px solid #ccc;
+      margin: 20px auto;
+    }
+
+    .copyright {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navi-logo">MuDaze</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="track.html">Tracks</a></li>
+      <li><a href="artist.html" class="active">Artists</a></li>
+      <li><a href="aboutus.html" class="start-btn">About Us</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <!-- TOP CHAPTER -->
+    <div class="chapter-row">
+      <div class="chapter-text">
+        <div class="name">BTS</div>
+
+        <div class="synopsis">
+          <ul>
+            <li>Jin, Suga, J-Hope, RM, Jimin, V, Jung Kook</li>
+            <li>BTS debuted in 2013 under Big Hit Entertainment</li>
+            <li>K-pop,pop,hip-hop,R&B,EDM</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:18px">
+          <div class="controls">
+            <a href="https://youtu.be/gdZLi9oWNZg?si=hzp-H5YwbBYgg_md" class="control-pill">Song</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrap">
+        <div class="media-card">
+          <picture>
+            <source media="(max-width: 480px)"
+              srcset="https://i.pinimg.com/1200x/c6/f0/cd/c6f0cd6805110002dd922fc3233c382c.jpg">
+            <!-- replace the src with your own image -->
+            <img src="https://i.pinimg.com/1200x/77/f8/91/77f8912298341714c04f89efdc8d60aa.jpg" alt="bts gp photo">
+          </picture>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="neon-line"></div>
+
+    <!-- LOWER CHAPTER (reversed layout) -->
+    <div class="chapter-row reversed" style="margin-top:30px;">
+      <div class="chapter-text" style="text-align:right">
+        <div class="name">TOMORROW X TOGETHER</div>
+
+        <div class="synopsis" style="direction: ltr; text-align:left;">
+          <ul>
+            <li>Yeonjun, Soobin, Beomgyu, Taehyun, Hueningkai</li>
+            <li>TXT debuted on March 4, 2019 under Big Hit Entertainment</li>
+            <li>K-pop , disco, shoegaze, indie rock, pop</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:18px; text-align:right">
+          <div class="controls" style="justify-content:flex-end;">
+            <a href="https://youtu.be/Vd9QkWsd5p4?si=sF824_ABSxEE3vq_" class="control-pill">Song</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrap small">
+        <div class="media-card">
+          <picture>
+            <source media="(max-width: 480px)"
+              srcset="https://i.pinimg.com/1200x/82/bf/1a/82bf1acfb14bdc508bc2be5109602623.jpg">
+            <img src="https://i.pinimg.com/1200x/0e/15/52/0e15522f898a3effd05de27ba7bc1f5c.jpg" alt="txt gp photo">
+          </picture>
+        </div>
+      </div>
+    </div>
+    <div class="neon-line" style="margin-top:60px"></div>
+
+    <!-- TOP CHAPTER -->
+    <div class="chapter-row">
+      <div class="chapter-text">
+        <div class="name">TWICE</div>
+
+        <div class="synopsis">
+          <ul>
+            <li>Nayeon, Jeongyeon, Momo, Sana, Jihyo, Mina, Dahyun, Chaeyoung, Tzuyu</li>
+            <li>TWICE debuted on October 20, 2015 under JYP Entertainment</li>
+            <li>K-pop, J-pop, bubblegum pop, dance-pop, EDM</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:18px">
+          <div class="controls">
+            <a href="https://youtu.be/i0p1bmr0EmE?si=RGVLaHF8B57OOOyG" class="control-pill">Song</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrap">
+        <div class="media-card">
+          <picture>
+            <source media="(max-width: 480px)"
+              srcset="https://i.pinimg.com/736x/79/e3/53/79e353b217d1b94861d16878299c4b09.jpg">
+            <!-- replace the src with your own image -->
+            <img src="https://i.pinimg.com/1200x/86/86/3c/86863cd9856dbae72c923df0ff032d81.jpg" alt="twice gp photo">
+          </picture>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="neon-line"></div>
+
+    <!-- LOWER CHAPTER (reversed layout) -->
+    <div class="chapter-row reversed" style="margin-top:30px;">
+      <div class="chapter-text" style="text-align:right">
+        <div class="name">LE SSERAFIM</div>
+
+        <div class="synopsis" style="direction: ltr; text-align:left;">
+          <ul>
+            <li>Sakura, Kim Chaewon, Huh Yunjin, Kazuha, Hong Eunchae</li>
+            <li>Le Sserafim debuted on May 2, 2022 under Source Music, a sub-label of Hybe</li>
+            <li>K-pop</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:18px; text-align:right">
+          <div class="controls" style="justify-content:flex-end;">
+            <a href="https://youtu.be/pyf8cbqyfPs?si=V49-2-UC3Z3kH44M" class="control-pill">Song</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrap small">
+        <div class="media-card">
+          <picture>
+            <source media="(max-width: 480px)"
+              srcset="https://i.pinimg.com/736x/40/81/99/408199602032bbe542d19ac4767a03a2.jpg">
+            <img src="https://i.pinimg.com/736x/59/9f/a1/599fa112e425e1ec0329d2205b2c0456.jpg"
+              alt="le sserafim gp photo">
+          </picture>
+        </div>
+      </div>
+    </div>
+    <div class="neon-line" style="margin-top:60px"></div>
+
+    <!-- TOP CHAPTER -->
+    <div class="chapter-row">
+      <div class="chapter-text">
+        <div class="name">Seventeen</div>
+
+        <div class="synopsis">
+          <ul>
+            <li>S.Coups, Jeonghan, Joshua, Jun, Hoshi, Wonwoo, Woozi, DK, Mingyu, The8, Seungkwan, Vernon, Dino</li>
+            <li>Seventeen debuted on May 26, 2015 under Pledis Entertainment</li>
+            <li>K-pop</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:18px">
+          <div class="controls">
+            <a href="https://youtu.be/-GQg25oP0S4?si=lj79HzUZuDU4m7kX" class="control-pill">Song</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrap">
+        <div class="media-card">
+          <picture>
+            <source media="(max-width: 480px)"
+              srcset="https://i.pinimg.com/1200x/d7/00/dd/d700ddd6962373253f8884f4533fdb96.jpg">
+            <!-- replace the src with your own image -->
+            <img src="https://i.pinimg.com/1200x/62/f3/2e/62f32ebc40cb1270761104c6f1e8c097.jpg"
+              alt="seventeen gp photo">
+          </picture>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="neon-line"></div>
+
+    <!-- LOWER CHAPTER (reversed layout) -->
+    <div class="chapter-row reversed" style="margin-top:30px;">
+      <div class="chapter-text" style="text-align:right">
+        <div class="name">ATEEZ</div>
+
+        <div class="synopsis" style="direction:ltr; text-align:left;">
+          <ul>
+            <li>Hongjoong, Seonghwa, Yunho, Yeosang, San, Mingi, Wooyoung, Jongho</li>
+            <li>Ateez debuted on October 24, 2018 under KQ Entertainment</li>
+            <li>K-pop, hip hop, trap, EDM</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:18px; text-align:right">
+          <div class="controls" style="justify-content:flex-end;">
+            <a href="https://youtu.be/U0G5OA6ZH5w?si=IVnwR5YZzAplKKAz" class="control-pill">Song</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrap small">
+        <div class="media-card">
+          <picture>
+            <source media="(max-width: 480px)"
+              srcset="https://i.pinimg.com/736x/20/b5/3a/20b53afb822b39a99585dcc9a9cb0d83.jpg">
+            <img src="https://i.pinimg.com/1200x/02/98/8c/02988c32ec68d53f250048f9f0d32267.jpg" alt="ateez gp photo">
+          </picture>
+        </div>
+      </div>
+    </div>
+    <div class="neon-line" style="margin-top:60px"></div>
+
+    <!-- TOP CHAPTER -->
+    <div class="chapter-row">
+      <div class="chapter-text">
+        <div class="name">Aespa</div>
+
+        <div class="synopsis">
+          <ul>
+            <li>Karina, Giselle, Winter, Ningning</li>
+            <li>Aespa debuted on November 17, 2020 under SM Entertainment</li>
+            <li>K-pop, hip-hop, dance-pop, hyperpop</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:18px">
+          <div class="controls">
+            <a href="https://youtu.be/4TWR90KJl84?si=Aosfbg7RtYSsP4fV" class="control-pill">Song</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrap">
+        <div class="media-card">
+          <picture>
+            <source media="(max-width: 480px)"
+              srcset="https://i.pinimg.com/1200x/55/22/c1/5522c13b11992057a624d708b4e5ee8c.jpg">
+            <!-- replace the src with your own image -->
+            <img src="https://i.pinimg.com/1200x/7c/c7/fd/7cc7fd1a78c025eaf242d935245673a3.jpg" alt="aespa gp photo">
+          </picture>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="neon-line"></div>
+
+    <!-- LOWER CHAPTER (reversed layout) -->
+    <div class="chapter-row reversed" style="margin-top:30px;">
+      <div class="chapter-text" style="text-align:right">
+        <div class="name">Cortis</div>
+
+        <div class="synopsis" style="direction:ltr; text-align:left;">
+          <ul>
+            <li>James, Juhoon, Martin, Seonghyeon, Keonho</li>
+            <li>Cortis debuted on August 18, 2025 under Big Hit Music</li>
+            <li>K-pop</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:18px; text-align:right">
+          <div class="controls" style="justify-content:flex-end;">
+            <a href="https://youtu.be/42wfEs7oIP8?si=9qDJXd-gfwDJ-eDV" class="control-pill">Song</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrap small">
+        <div class="media-card">
+          <picture>
+            <source media="(max-width: 480px)"
+              srcset="https://i.pinimg.com/736x/0b/1c/1d/0b1c1de2731e24456405d14f045630aa.jpg">
+            <img src="https://i.pinimg.com/736x/37/4e/ac/374eac9d77075e20697507673e506bdf.jpg" alt="cortis gp photo">
+          </picture>
+        </div>
+      </div>
+    </div>
+    <div class="neon-line" style="margin-top:60px"></div>
+
+  </div>
+
+  <footer>
+    <div class="row">
+      <div class="col">
+        <img src="photo/logo.png" class="logo">
+      </div>
+      <div class="col">
+        <p>bring people closer through music — connecting hearts, emotions, and stories behind every song.</p>
+        <p>With appreciation for the resources that inspired this work.</p>
+      </div>
+      <div class="col" style="font-size: 30px; color: #b31e5c;">
+        <p><i class="bi bi-twitter-x"></i></p>
+        <p><i class="bi bi-instagram"></i></p>
+        <p><i class="bi bi-facebook"></i></p>
+        <p><i class="bi bi-youtube"></i></p>
+      </div>
+    </div>
+    <hr>
+    <p class="copyright">© 2025 MuDaze | All Rights Reserved</p>
+  </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="photo/logo.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <title>MuDaze</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            background-color: #0b070e;
+            /* Dark background color */
+            color: #fff;
+        }
+
+        /*navbar------------------------*/
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 12px 30px;
+            margin: 20px auto;
+            width: 80%;
+            box-shadow: 0 4px 20px rgba(255, 0, 255, 0.3);
+            z-index: 2;
+        }
+
+        /* Logo */
+        .navi-logo {
+            font-weight: 600;
+            font-size: 18px;
+            color: #ff2b75;
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 0;
+            background-image: linear-gradient(to right, #ff2b75, #ff6bcb);
+            background-repeat: no-repeat;
+            background-size: 0% 3px;
+            /* underline width */
+            background-position: center bottom;
+            transition: background-size 0.3s ease;
+        }
+
+        /* Hover + Active Effect */
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            background-size: 40% 3px;
+            /* underline length */
+        }
+
+        /* Button Style */
+        .start-btn {
+            background: linear-gradient(to right, #ff2b75, #ff6bcb);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(255, 43, 117, 0.6);
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                top: 10px;
+                width: 90%;
+                padding: 10px 20px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navi-logo {
+                font-size: 16px;
+                margin-bottom: 5px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+            }
+
+            .nav-links li a {
+                font-size: 14px;
+            }
+
+            .start-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+
+        /*header-----------------*/
+        .header {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(65, 30, 87, 0.5)), url('photo/trackBG.png');
+            background-size: cover;
+            background-attachment: fixed;
+            z-index: -2;
+        }
+
+        .main-poster {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px;
+            border-style: solid;
+            border-color: rgb(253, 253, 253);
+            margin-top: 30px;
+            margin-left: 55%;
+            z-index: -1;
+            width: 20%;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .movie-info {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(90deg, #6bffdf, #e257fe, #fb4857);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-left: 10%;
+            margin-top: 10%;
+        }
+
+        .movie-info h1 {
+            font-size: 3em;
+            margin-bottom: 0.2em;
+        }
+
+        @media (max-width: 1024px) {
+            .main-poster {
+                width: 30%;
+                margin-left: 50%;
+                margin-top: 20px;
+            }
+        }
+
+        /* Phone version (screen width ≤ 480px) */
+        @media (max-width: 480px) {
+            .main-poster {
+                width: 45%;
+                margin-left: 30%;
+                margin-top: 15px;
+            }
+        }
+
+        /* Top Music Player Bar------------------- */
+        .music-player {
+            background: linear-gradient(to bottom, rgba(57, 2, 78, 0.3), #0b070e);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 30px;
+            position: relative;
+        }
+
+        .music-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .music-info img {
+            width: 70px;
+            height: 70px;
+            border-radius: 5px;
+        }
+
+        .music-text h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .music-text p {
+            margin: 0;
+            font-size: 18px;
+            color: #aaa;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            margin-right: 6%;
+        }
+
+        .controls i {
+            font-size: 25px;
+            cursor: pointer;
+            color: rgb(190, 108, 245);
+        }
+
+
+        /* Song List */
+        .song-list {
+            background: linear-gradient(135deg, rgba(118, 3, 133, 0.7), rgba(5, 0, 7, 0.5), rgba(9, 6, 145, 0.4));
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin-top: 2%;
+            margin-bottom: 3%;
+        }
+
+        .song {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            width: 90%;
+            margin-left: 5%;
+        }
+
+        .song-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .song-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        .song-info h4 {
+
+            font-size: 18px;
+        }
+
+        .song-info p {
+            font-size: 15px;
+            color: #ccc;
+        }
+
+        .song span {
+            color: #ccc;
+            font-size: 15px;
+            margin-left: auto;
+        }
+
+        .song button {
+            background: none;
+            border: none;
+            color: rgb(108, 245, 227);
+            font-size: 27px;
+            cursor: pointer;
+            margin-right: 5%;
+        }
+
+        /*footer------------*/
+        footer {
+            width: 100%;
+            bottom: 0;
+            background: linear-gradient(to right, #2e003c, #000e2d);
+            color: #fff;
+            padding: 100px 0 30px;
+            border-top-left-radius: 125px;
+            font-size: 15px;
+            line-height: 20px;
+        }
+
+        .row {
+            width: 85%;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .col {
+            flex-basis: 25%;
+            padding: 10px;
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 30px;
+        }
+
+        hr {
+            width: 90%;
+            border: 0;
+            border-bottom: 1px solid #ccc;
+            margin: 20px auto;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navi-logo">MuDaze</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="track.html" class="active">Tracks</a></li>
+            <li><a href="artist.html">Artists</a></li>
+            <li><a href="aboutus.html" class="start-btn">About Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="header">
+        <div class="overlay"></div>
+        <div class="movie-info">
+            <h1>FOLLOW YOUR LITTLE RHYTHM</h1>
+        </div>
+        <img src="photo/track-photo.png" alt="track-photo" class="main-poster">
+    </div>
+
+    <!-- Player Bar -->
+    <div class="music-player">
+        <div class="music-info">
+            <img src="https://i.pinimg.com/736x/dd/f8/dd/ddf8dd128111f20e1cd92722786e584b.jpg" alt="Hanya Rindu">
+            <div class="music-text">
+                <h3 id="current-title">Song</h3>
+                <p id="current-artist">Artist</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <i id="mainPlay" class="bi bi-play-circle"></i>
+        </div>
+    </div>
+
+
+    <!-- Song List -->
+    <div class="song-list" id="songlist">
+        <div class="song">
+            <div class="song-info">
+                <img src="https://i.pinimg.com/736x/78/4e/8c/784e8cfeba474228072b67991950e309.jpg" alt="Ghost girl">
+                <div>
+                    <h4>Ghost girl</h4>
+                    <p>Yeonjun</p>
+                </div>
+            </div>
+            <span>03:18</span>
+            <button onclick="playSong('music/audioYEONJUNGhost_Girl.mp3',this)"><i class="bi bi-play-circle"></i>
+            </button>
+        </div>
+
+        <div class="song">
+            <div class="song-info">
+                <img src="https://i.pinimg.com/736x/c7/4d/8f/c74d8fb36e2014fd13af0d277e1c89d1.jpg" alt="Jungle">
+                <div>
+                    <h4>Jungle</h4>
+                    <p>S. Coups</p>
+                </div>
+            </div>
+            <span>02:33</span>
+            <button onclick="playSong('music/audioJungleS.COUPS.mp3',this)"><i class="bi bi-play-circle"></i></button>
+        </div>
+
+        <div class="song">
+            <div class="song-info">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Aespa_-_Whiplash.png/250px-Aespa_-_Whiplash.png"
+                    alt="Whiplash">
+                <div>
+                    <h4>Whiplash</h4>
+                    <p>Aespa</p>
+                </div>
+            </div>
+            <span>03:10</span>
+            <button onclick="playSong('music/audioaespaWhiplash.mp3',this)"><i class="bi bi-play-circle"></i></button>
+        </div>
+
+        <div class="song">
+            <div class="song-info">
+                <img src="https://i.pinimg.com/736x/b1/13/32/b113328478c5d6c20e2be965578443f4.jpg" alt="Life Goes On">
+                <div>
+                    <h4>Life Goes On</h4>
+                    <p>BTS</p>
+                </div>
+            </div>
+            <span>03:50</span>
+            <button onclick="playSong('music/audioBTS.mp3',this)"><i class="bi bi-play-circle"></i></button>
+        </div>
+        <div class="song">
+            <div class="song-info">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Twice_-_Taste_of_Love_%28EP%29.png/250px-Twice_-_Taste_of_Love_%28EP%29.png"
+                    alt="Alcohol-Free">
+                <div>
+                    <h4>Alcohol-Free</h4>
+                    <p>Twice </p>
+                </div>
+            </div>
+            <span>03:33</span>
+            <button onclick="playSong('music/audioTWICEAlcohol.mp3',this)"><i class="bi bi-play-circle"></i></button>
+        </div>
+    </div>
+
+    <audio id="audio"></audio>
+
+    <script>
+        let audio = document.getElementById("audio");
+        let currentPlayingBtn = null;
+
+        // Play song function
+        function playSong(src, btn) {
+            const songDiv = btn.closest(".song");
+            const title = songDiv.querySelector("h4").textContent;
+            const artist = songDiv.querySelector("p").textContent;
+            const imgSrc = songDiv.querySelector("img").src;
+            const icon = btn.querySelector("i");
+
+            // ပြီးသားသီချင်းတစ်ပုဒ်ရှိရင် reset
+            if (currentPlayingBtn && currentPlayingBtn !== btn) {
+                currentPlayingBtn.querySelector("i").classList.replace("bi-pause-circle", "bi-play-circle");
+                currentPlayingBtn.closest(".song").classList.remove("active");
+            }
+
+            // အသစ်ဖွင့်မယ်
+            if (audio.src !== location.origin + "/" + src) {
+                audio.src = src;
+            }
+
+            // Toggle play / pause
+            if (audio.paused) {
+                audio.play();
+                icon.classList.replace("bi-play-circle", "bi-pause-circle");
+                songDiv.classList.add("active");
+                // Player bar update
+                document.getElementById("current-title").textContent = title;
+                document.getElementById("current-artist").textContent = artist;
+                document.getElementById("current-img").src = imgSrc;
+
+                currentPlayingBtn = btn;
+            } else {
+                audio.pause();
+                icon.classList.replace("bi-pause-circle", "bi-play-circle");
+                songDiv.classList.remove("active");
+            }
+        }
+
+        // Main player play button (middle one)
+        document.getElementById("mainPlay").addEventListener("click", function () {
+            if (!audio.src) return;
+            if (audio.paused) {
+                audio.play();
+                this.classList.replace("bi-play-circle", "bi-pause-circle");
+                if (currentPlayingBtn) currentPlayingBtn.querySelector("i").classList.replace("bi-play-circle", "bi-pause-circle");
+            } else {
+                audio.pause();
+                this.classList.replace("bi-pause-circle", "bi-play-circle");
+                if (currentPlayingBtn) currentPlayingBtn.querySelector("i").classList.replace("bi-pause-circle", "bi-play-circle");
+            }
+        });
+
+        // Update UI when song ends
+        audio.addEventListener("ended", () => {
+            if (currentPlayingBtn) {
+                currentPlayingBtn.querySelector("i").classList.replace("bi-pause-circle", "bi-play-circle");
+                currentPlayingBtn.closest(".song").classList.remove("active");
+            }
+            document.getElementById("mainPlay").classList.replace("bi-pause-circle", "bi-play-circle");
+        });
+    </script>
+
+    <footer>
+        <div class="row">
+            <div class="col">
+                <img src="photo/logo.png" class="logo">
+            </div>
+            <div class="col">
+                <p>bring people closer through music — connecting hearts, emotions, and stories behind every song.</p>
+                <p>With appreciation for the resources that inspired this work.</p>
+            </div>
+            <div class="col" style="font-size: 30px; color: #b31e5c;">
+                <p><i class="bi bi-twitter-x"></i></p>
+                <p><i class="bi bi-instagram"></i></p>
+                <p><i class="bi bi-facebook"></i></p>
+                <p><i class="bi bi-youtube"></i></p>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">© 2025 MuDaze | All Rights Reserved</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="photo/logo.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <title>MuDaze</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://i.pinimg.com/736x/2b/71/24/2b71242dd3f912c751c5f798a1c98712.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      /* Dark background color */
+      color: #fff;
+    }
+
+    /*navbar------------------------*/
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 40px;
+      padding: 12px 30px;
+      margin: 20px auto;
+      width: 80%;
+      box-shadow: 0 4px 20px rgba(255, 0, 255, 0.3);
+      z-index: 2;
+    }
+
+    /* Logo */
+    .navi-logo {
+      font-weight: 600;
+      font-size: 18px;
+      color: #ff2b75;
+    }
+
+    /* Navigation Links */
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 6px 0;
+      background-image: linear-gradient(to right, #ff2b75, #ff6bcb);
+      background-repeat: no-repeat;
+      background-size: 0% 3px;
+      /* underline width */
+      background-position: center bottom;
+      transition: background-size 0.3s ease;
+    }
+
+    /* Hover + Active Effect */
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      background-size: 40% 3px;
+      /* underline length */
+    }
+
+
+    @media (max-width: 480px) {
+      .navbar {
+        top: 10px;
+        width: 90%;
+        padding: 10px 20px;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .navi-logo {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .nav-links li a {
+        font-size: 14px;
+      }
+    }
+
+    /*header---------------------*/
+    .header {
+      position: relative;
+      width: 100%;
+      height: 200vh;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 90%;
+      margin-left: 5%;
+      margin-top: 5%;
+      height: auto;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      border: #2bdfff solid 2px;
+      border-radius: 20px;
+    }
+
+    .about-1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      padding: 80px 40px 40px;
+    }
+
+    .about {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px;
+    }
+
+    .pf-pic {
+      width: 250px;
+      border-radius: 50%;
+    }
+
+    .about-text {
+      max-width: 500px;
+    }
+
+    .about-text h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #307c8a;
+    }
+
+    .about-text p {
+      line-height: 1.6;
+      font-size: 18px;
+    }
+
+    .purpose {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 70px;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      color: #53c5bf;
+      box-shadow: 0 0 15px rgb(107, 43, 255);
+      border-radius: 30px;
+      padding: 10px;
+    }
+
+    .about-hr {
+      width: 90%;
+      border: 0;
+      border-bottom: 1px solid #4af0e2;
+      margin: 20px auto;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 100px;
+      background-color: #2d1250;
+      margin-top: 20px;
+      margin-bottom: 70px;
+      border-radius: 8px;
+      border: 2px solid rgba(86, 211, 233, 0.4);
+      font-size: 20px;
+      line-height: 1.6;
+      padding-left: 18px;
+    }
+
+    .user-text {
+      color: #80a7ad;
+    }
+
+    .for-user {
+      width: 30%;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        height: 190vh;
+      }
+
+      .about {
+        gap: 20px;
+      }
+
+      .pf-pic {
+        width: 150px;
+      }
+
+      .about-text {
+        max-width: 70%;
+        text-align: center;
+      }
+
+      .about-text h1 {
+        font-size: 23px;
+      }
+
+      .about-text p {
+        font-size: 15px;
+      }
+
+      .purpose {
+        font-size: 22px;
+        margin-bottom: 40px;
+        padding: 7px;
+      }
+
+      .container {
+        gap: 30px;
+        padding: 20px;
+        font-size: 18px;
+        margin-top: 40px;
+        margin-bottom: 30px;
+      }
+
+      .for-user {
+        width: 50%;
+      }
+    }
+
+    @media (max-width: 560px) {
+
+      .header {
+        height: 190vh;
+      }
+
+      .about {
+        gap: 18px;
+      }
+
+      .about-hr {
+        padding: 10px auto;
+      }
+
+      .purpose {
+        font-size: 20px;
+        margin-bottom: 40px;
+        padding: 8px;
+      }
+
+      .container {
+        gap: 30px;
+        padding: 20px;
+        font-size: 15px;
+        margin-top: 40px;
+        margin-bottom: 30px;
+      }
+
+      .for-user {
+        width: 50%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        height: 220vh;
+      }
+
+      .overlay {
+        margin-top: 10%;
+        margin-left: 4.5%;
+        margin-bottom: 5%;
+        padding-top: 20px;
+      }
+
+      .about-1 {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 40px 15px;
+      }
+
+      .about {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 40px 15px;
+      }
+
+      .pf-pic {
+        width: 150px;
+      }
+
+      .about-text h1 {
+        font-size: 20px;
+      }
+
+      .about-text p {
+        font-size: 14px;
+      }
+
+      .purpose {
+        font-size: 20px;
+        margin-bottom: 40px;
+        padding: 6px;
+      }
+
+      .container {
+        flex-direction: column;
+        gap: 20px;
+        font-size: 16px;
+        padding: 15px;
+      }
+
+      .for-user {
+        width: 80%;
+      }
+
+      .user-text {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .header {
+        height: 240vh;
+      }
+
+      .overlay {
+        margin-top: 15%;
+        margin-bottom: 5%;
+        padding-top: 18px;
+      }
+
+      .container {
+        margin-top: 10%;
+      }
+    }
+
+    /*footer------------*/
+    footer {
+      width: 100%;
+      bottom: 0;
+      background: linear-gradient(to right, #2e003c, #000e2d);
+      color: #fff;
+      padding: 100px 0 30px;
+      border-top-left-radius: 125px;
+      font-size: 15px;
+      line-height: 20px;
+    }
+
+    .row {
+      width: 85%;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .col {
+      flex-basis: 25%;
+      padding: 10px;
+    }
+
+    .logo {
+      width: 150px;
+      margin-bottom: 30px;
+    }
+
+    hr {
+      width: 90%;
+      border: 0;
+      border-bottom: 1px solid #ccc;
+      margin: 20px auto;
+    }
+
+    .copyright {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navi-logo">MuDaze</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="track.html">Tracks</a></li>
+      <li><a href="artist.html">Artists</a></li>
+      <li><a href="aboutus.html" class="active">About Us</a></li>
+    </ul>
+  </nav>
+
+  <div class="header">
+    <div class="overlay">
+      <section class="about-1">
+        <img src="photo/track-photo (1).png" alt="profile pic" class="pf-pic">
+        <div class="about-text">
+          <h1>Hello,This is Yeon</h1>
+          <div style="direction: ltr; text-align:left;">
+            <p>I created this platform to make finding and listening to music easier, faster, and more enjoyable.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about">
+        <div class="purpose">Purpose of the website</div>
+        <div class="about-text">
+          <h1>Welcome to MuDaze</h1>
+          <div style="direction: ltr; text-align:left;">
+            <p>a space where music lovers from around the world come together to
+              discover, share, and enjoy their favorite tunes.</p>
+          </div>
+        </div>
+      </section>
+
+      <hr class="about-hr">
+      <section class="about">
+        <div class="about-text">
+          <p>“Our vision is to bring people closer through music — connecting hearts,
+            emotions, and stories behind every song.”</p>
+        </div>
+      </section>
+
+      <div class="container">
+        <ul class="user-text">
+          <li>Stream and explore trending songs</li>
+          <li>Discover artists from different genres</li>
+          <li>Learn about your favorite musicians</li>
+        </ul>
+        <img src="https://i.pinimg.com/1200x/9c/f8/ce/9cf8ce0a092fa84071b14b932a37287a.jpg" alt="pf" class="for-user">
+      </div>
+
+    </div>
+  </div>
+
+
+  <footer>
+    <div class="row">
+      <div class="col">
+        <img src="photo/logo.png" class="logo">
+      </div>
+      <div class="col">
+        <p>bring people closer through music — connecting hearts, emotions, and stories behind every song.</p>
+        <p>With appreciation for the resources that inspired this work.</p>
+      </div>
+      <div class="col" style="font-size: 30px; color: #b31e5c;">
+        <p><i class="bi bi-twitter-x"></i></p>
+        <p><i class="bi bi-instagram"></i></p>
+        <p><i class="bi bi-facebook"></i></p>
+        <p><i class="bi bi-youtube"></i></p>
+      </div>
+    </div>
+    <hr>
+    <p class="copyright">© 2025 MuDaze | All Rights Reserved</p>
+  </footer>
+</body>
+
+</html>
